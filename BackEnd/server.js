@@ -35,7 +35,7 @@ const movieSchema = new mongoose.Schema({
     Poster:String
 });
 
-const movieModel = mongoose.model('martin', movieSchema);
+const movieModel = mongoose.model('martindfgdfgdfg', movieSchema);
 
 
 app.get('/', (req, res) => {
@@ -64,6 +64,17 @@ app.get('/api/movies/:id',(req, res)=>{
     })
 })
 
+app.delete('/api/movies/:id', (req, res)=>{
+    console.log('Deleteing : '+req.params.id);
+
+    movieModel.deleteOne({_id:req.params.id},
+        (error, data)=>{
+            if(error)
+                res.send(error)
+            res.send(data);
+        })
+})
+
 app.put('/api/movies/:id',(req, res)=>{
     console.log('update');
     console.log(req.body);
@@ -75,6 +86,8 @@ app.put('/api/movies/:id',(req, res)=>{
         })
 
 })
+
+
 
 app.get('/api/movies', (req, res) => {
     movieModel.find((err, data)=>{
